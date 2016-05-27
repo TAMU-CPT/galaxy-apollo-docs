@@ -59,10 +59,8 @@ MOD.
 GBrowse
 ~~~~~~~
 
-`GBrowse <http://gmod.org/wiki/GBrowse>`__ was one of the earlier genome
-
-browsers, and continues to have wide popularity as it handles massive
-datasets quite well.
+`GBrowse <http://gmod.org/wiki/GBrowse>`__ was one of the earlier genome browsers, 
+and continues to have wide popularity as it handles massive datasets quite well.
 
 
 .. rst-class:: panel panel-primary
