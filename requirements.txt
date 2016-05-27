@@ -1,0 +1,4 @@
+sphinx
+sphinx_bootstrap_theme
+sphinxcontrib-bibtex
+sphinxcontrib-images==0.7.0
