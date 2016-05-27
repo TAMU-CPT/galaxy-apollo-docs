@@ -8,27 +8,9 @@ Background
 Apollo is a Genome Browser. It lets you visualize genes on a genome,
 create and edit genes, and create and edit annotations on those genes.
 
-
-.. important::
-
-    We have been using another browser called Artemis up until this
-    semester. Please bear with us for any issues encountered.
-    `Eric <mailto:esr@tamu.edu>`__ is the primary point of contact for
-    help using Apollo, or reporting any bugs encountered during use.
-
 Genome Browsers are a vital tool for rapidly annotating genomes. They
 let you visualize multiple data sources and help you synthesize those
-into a rational set of annotations. But, what are annotations? From the
-Pipeline discussion:
-
-
-.. pull-quote::
-
-    Annotation is the addition of descriptive features to a DNA
-    sequence, such as a protein's function, or locating tRNAs, and
-    terminators. The annotation process we do is 100% computer based, so
-    keep in mind that until an annotation is experimentally tested in
-    the lab, it is putative or assumed based on an educated hypothesis.
+into a rational set of annotations.
 
 Definitions
 -----------
@@ -49,6 +31,11 @@ Instance
 Credentials
    Username and password. Also may be used to mean an "API Key" which you
    can consider as a combined username and password
+
+Site
+   This is sometimes used to mean your lab or organisation. Generally the
+   people who have both deployed an Apollo instance for you, and you work with
+   to annotate a genome.
 
 
 GMOD, GBrowse, JBrowse, Apollo, what's it all mean?
@@ -89,12 +76,11 @@ datasets through a set of static images shown to the user.
 JBrowse
 ~~~~~~~
 
-We do not use GBrowse, we use JBrowse. JBrowse and GBrowse are related
-and attempt to solve the same problem, JBrowse is just a more modern,
-javascript version that does all of the processing on the client. This
-can make JBrowse much more responsive to user interactions, like how
-Google Maps was an improvement over previous web maps which required you
-to click and the page to refresh to load a new section of the map.
+JBrowse and GBrowse are related and attempt to solve the same problem, JBrowse
+is a more modern, javascript version that does all of the processing on the
+client. This can make JBrowse much more responsive to user interactions, like
+how Google Maps was an improvement over previous web maps which required you to
+click and the page to refresh to load a new section of the map.
 
 .. rst-class:: panel panel-primary
 .. figure:: img/JBrowse_alignment_and_coverage.png
@@ -167,8 +153,9 @@ GFF3
    .. figure:: ./img/09-04.jpg
       :width: 100%
 
-      This model is not used by phages, but is used by the storage format that all
-      of our data is stored in.
+      This model is used by GFF3 and eukaryotic annotation efforts. Prokaryotic
+      annotations may exhibit differences. Many organisations also use
+      different standards and subsets of GFF3.
 
 
 Many of you are probably familiar with the eukaryotic gene model.
@@ -177,7 +164,7 @@ behind producing proteins from DNA, such as mRNAs, transcription, and
 alternative splicing. GFF3 files thus have to encode these complex,
 hierarchical, parent-child relationships.
 
-Let's look at what a GFF3 file looks like:
+Let's look at what a GFF3 file looks like, briefly:
 
 ::
 
@@ -205,20 +192,20 @@ At the top level we see a "gene" (3rd column), which spans from 1000 to
 9000, on the forward strand (7th column), with an ID of ``gene00001``
 and a Name of ``EDEN``.
 
-Below the gene, is an mRNA feature. We can infer that it is "below" in
-the hierarchy based on the last column which has a *Parent* of
-``gene00001``. Similarly all four exons and all four CDSs have a Parent
-of ``mRNA00001``. ``ID``, ``Name``, and ``Parent`` are all known as
-*feature attributes*. Metadata about a feature. However, more
-information than just the names, IDs, and relationships goes into
-feature attributes. Often you will see Notes, sometimes Products, and
-many more. Only a couple of these attributes have standards defining
-what information they contain, the rest are free to be used as you like.
+Below the gene, is an mRNA feature. We can infer that it is "below" in the
+hierarchy based on the last column which has a *Parent* of ``gene00001``.
+Similarly all four exons and all four CDSs have a Parent of ``mRNA00001``.
+``ID``, ``Name``, and ``Parent`` are all known as *feature attributes*.
+Metadata about a feature. However, more information than just the names, IDs,
+and relationships goes into feature attributes. Often you will see Notes,
+sometimes Products, and many other tags besides. Only a couple of these
+attributes have standards defining what information they contain, the rest are
+free to be used as your organisation specifies, or as you like.
 
-All of this is a little bit excessive for phages where exons are rare,
-and mRNAs not involved, but nevertheless, we want to make sure our data
-is accessible to other researchers so they can do experiments building
-on our work.
+All of this is a little bit excessive for phages where real introns are rare,
+and mRNAs not involved, but nevertheless, we want to make sure our data is
+accessible to other researchers so they can do experiments building on our
+work.
 
 (It is more important that you know the format exists, and that it
 encodes parent-child biological relationships, than that you know the
@@ -318,53 +305,46 @@ familiarize yourself with Apollo before class. The example presented
 here will be open for everyone in the class to use, so images may not
 reflect the current annotations made.
 
-.. warning::
-
-    As of 2016-02, the Apollo service does NOT work under IE11
-
-There are two primary components to annotation:
+There are two primary components to an annotation pipeline:
 
 1. Structural annotation
 2. Functional annotation
 
-In structural annotation you will take the output of several gene
-callers which have identified possible genes in your phage genome and
-use these results to annotate putative genes in Apollo. Structural
-annotations consist of locations of genomic features, like genes and
-terminators.
+In structural annotation you will likely take the output of gene callers, and
+perhaps other evidence tracks, and use these results to annotate putative genes
+in Apollo. Structural annotations consist of locations of genomic features,
+like genes, terminators, and tRNAs.
 
 Functional annotation will entail identifying possible gene functions
-based on multiple sources of evidence. We will go into more detail in
+based on different evidence sources. We will go into more detail in
 the first lecture on what it means to do structural and functional
 annotations.
 
 Apollo in Galaxy
 ----------------
 
-Apollo-Galaxy integration was something developed by the Center for Phage
-Technology, specifically for this course, though it is slowly seeing much wider
-adoption in the annotation community. This section will cover the generalised
-use of Apollo in Galaxy, not specific to any workflow implementation.
+This section will cover the generalised use of Apollo in Galaxy,
+not specific to any annotation workflow implementation.
 
 .. rst-class:: panel
 .. figure:: ./img/name-store.png
 
    This error might appear, from time to time. It is safe to ignore.
 
-
 Registration
 ~~~~~~~~~~~~
 
-In order to log in to Apollo, you'll need to register for an account.
+In order to log in to Apollo, you'll need to register for an account using the
+Galaxy tool, if your site has not already set up one for you.
 
 .. figure:: ./img/apollo/apollo-1-register-account.png
 
-You can register for an account by
-running `a Galaxy
-tool <https://cpt.tamu.edu/galaxy/root?tool_id=edu.tamu.cpt2.webapollo.create_account>`__,
-which will generate your credentials for you. If you ever forget your credentials and
-cannot find the item in your history, you can re-run this, and it will
-generate a new password for you.
+In the integrated Galaxy-Apollo workflow, you can register for an account by
+running `a Galaxy tool
+<https://your-organisations-galaxy-instance/root?tool_id=edu.tamu.cpt2.webapollo.create_account>`__,
+which will generate your credentials for you. If you ever forget your
+credentials and cannot find the item in your history, you can re-run this, and
+it will generate a new password for you.
 
 Simply fill out the form:
 
@@ -449,7 +429,7 @@ You're ready to start talking to the Apollo service.
    form of a JBrowse instance, which is pushed to the Apollo service in the
    Create or Update step, and transfers data to Apollo. The Annotate step is
    simple a convenience method for accessing Apollo. Apollo is also available at
-   `https://cpt.tamu.edu/apollo <https://cpt.tamu.edu/apollo>`__. These methods both point at the same instance of
+   `https://your-organisations-galaxy-instance/apollo <https://your-organisations-galaxy-instance/apollo>`__. These methods both point at the same instance of
    Apollo.
 
 The first tool we'll use is a tool named **Create or Update** which lets us
@@ -468,7 +448,7 @@ file contains some metadata about the organism. You will never need any informat
 from this file.
 
 Now that your data is available in Apollo, you can access it at `Apollo
-<https://cpt.tamu.edu/apollo/>`__, or via the **Annotate** convenience method
+<https://your-organisations-galaxy-instance/apollo/>`__, or via the **Annotate** convenience method
 which is provided. The Annotate tool takes the JSON file from a *Create or Update*
 step, and loads Apollo, directly in Galaxy.
 
@@ -590,11 +570,7 @@ Let's zoom down to the level of a single gene:
    sequences to ensure that only high quality ones are visible.
 
 Great! Here we see the very first gene called by the three *gene
-callers* that we use. (There is more information on gene calling
-available in the
-`Pipeline <https://cpt.tamu.edu/jenkins/job/phage-bioinfo-textbook/lastSuccessfulBuild/artifact/main.pdf>`__
-document. We will cover that separately. A gene call is a possible
-location for a gene)
+callers* that we use.
 
 .. note::
 
@@ -603,178 +579,3 @@ location for a gene)
 
 .. |GBrowse Screenshot| image:: ./img/GBrowse_screenshot1.png
    :target: http://gmod.org/wiki/File:GBrowse_screenshot1.png
-
-Workflows
-=========
-
-There are a couple of workflows which you will run as part of the Apollo and
-Annotation process. The first covers structural annotation (genes, terminators,
-tRNAs), while the second covers functional annotation (blast, interpro, etc.).
-
-Workflow - Structural
----------------------
-
-This workflow will run your genome through three automated gene callers,
-*MetaGeneAnnotator*, *GeneMarkS*, and *Glimmer3*. Additionally tRNA and
-terminator finding tools will be run.
-
-
-1. Open the workflow in Galaxy
-   (`Public <https://cpt.tamu.edu/galaxy-pub/u/eric-rasche/w/pap-2016-v8-structural>`__,
-   `TAMU <https://cpt.tamu.edu/galaxy/u/eric-rasche/w/pap-2016-v8-structural>`__)
-
-2.  Select import at the top right, in green.
-
-    .. rst-class:: panel
-    .. figure:: ./img/import-workflow.png
-       :alt:
-
-       **NB: This is a generic image**, your workflow may have a
-       different name. You need to use the button at the right to import the
-       workflow
-
-3.  Once you've imported it, you'll want to **start using this
-    workflow**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-import-ok.png
-       :alt:
-
-4.  Again, using the dropdown to actually **Run workflow**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-run-imported.png
-       :alt:
-
-       **NB: This is a generic image**, your workflow may have a
-       different name.
-
-6.  Specify the following:
-
-    +------------------------------------------+-----------------+------------------------------------------------------------------------------------------------------------------------------------+
-    | Step                                     | Field           | Data                                                                                                                               |
-    +==========================================+=================+====================================================================================================================================+
-    | Step 1: Input Dataset                    | Fasta Genome    | Your phage's **Fasta Genome**                                                                                                      |
-    +------------------------------------------+-----------------+------------------------------------------------------------------------------------------------------------------------------------+
-
-7.  **Execute**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-execute.png
-       :alt:
-
-8.  If everything went successfully, you'll see a notice, you should
-    **follow the instructions**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-wf-success.png
-       :alt:
-
-9.  This workflow will load your genome and the gene call evidence into
-    Apollo. From there you will need to go through the genome and select
-    the likely gene calls. Remember that the three gene callers are
-    correct maybe 90-95% of the time. Your task is to examine each
-    likely gene region, and select the best call.
-
-    .. rst-class:: panel
-    .. figure:: ./img/better.png
-       :alt:
-
-       Dark green is probably a better choice than light green in this
-       case.
-
-10. This is **bad**
-
-.. rst-class:: panel
-.. figure:: ./img/Selection_531.png
-   :alt:
-
-This is **good**
-
-.. rst-class:: panel
-.. figure:: ./img/Selection_532.png
-   :alt:
-
-You will need to update all of your translation start sites if Apollo
-has messed them up. If you see cases like this, zoom in on the organism, and
-right click the location where translation should start, and select **Set
-Translation Start**
-
-.. rst-class:: panel
-.. figure:: ./img/Selection_533.png
-   :alt:
-
-.. important::
-
-   If you have any questions on the process, please feel free to contact `Eric
-   <mailto:esr@tamu.edu>`__.
-
-
-Workflow - Functional
----------------------
-
-Once your structural annotation is completely done, you're ready to move on to
-the functional annotation. If you want a second set of eyes, double-checking
-your genome, feel free to talk to Eric. Reviewing your gene calls now and
-getting them right will save you *significant* amounts of time later.
-
-1. Open the workflow in Galaxy
-   (`Public <https://cpt.tamu.edu/galaxy-pub/u/eric-rasche/w/pap-2016-v8-functional>`__,
-   `TAMU <https://cpt.tamu.edu/galaxy/u/eric-rasche/w/pap-2016-v8-functional>`__)
-
-2.  Select import at the top right, in green.
-
-    .. rst-class:: panel
-    .. figure:: ./img/import-workflow.png
-
-       **NB: This is a generic image**, your workflow may have a
-       different name. You need to use the button at the right to import the
-       workflow
-
-3.  Once you've imported it, you'll want to **start using this
-    workflow**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-import-ok.png
-
-4.  Again, using the dropdown to actually **Run workflow**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-run-imported.png
-
-       **NB: This is a generic image**, your workflow may have a
-       different name.
-
-6.  Fill out the workflow form appropriately. You should specify the organism's
-    common name at the very least. If the organism has multiple reference
-    sequences and you only wish to annotate one, you'll need to specify that
-    as well. You should not need to change any other settings.
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-functional-form.png
-
-       **NB: This is a generic image**, your workflow may look slightly
-       different. In most cases, you will only need to specify the organism's
-       common name and not the reference sequence.
-
-7.  **Execute**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-execute.png
-       :alt:
-
-8.  If everything went successfully, you'll see a notice, you should
-    **follow the instructions**
-
-    .. rst-class:: panel
-    .. figure:: ./img/gx-wf-success.png
-       :alt:
-
-9.  This workflow will load your genome and the gene call evidence into
-    Apollo. From there you will need to go through the genome and annotate it
-    based on the evidence in the various tracks.
-
-.. important::
-
-   If you have any questions on the process, please feel free to contact `Eric
-   <mailto:esr@tamu.edu>`__.
