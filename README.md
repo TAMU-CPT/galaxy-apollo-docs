@@ -1,22 +1,10 @@
 Apollo/Galaxy Integrated Annotation
 ===================================
 
-[![Build
-Status](https://cpt.tamu.edu/jenkins/buildStatus/icon?job=BICH464-Computer-Lab)](https://cpt.tamu.edu/jenkins/job/BICH464-Computer-Lab/)
+[![Documentation Status](https://readthedocs.org/projects/gxaa/badge/?version=latest)](http://gxaa.readthedocs.io/en/latest/?badge=latest)
 
-These materials will document the computer lab in its entirety,
-everything from the high-level "why" to the low-level "how".
-
--   [ ] Introduction
--   [x] [Galaxy](Galaxy.md)
--   [x] [Apollo](Apollo.md)
-    -   [x] Login
-    -   [x] Navigation
-    -   [x] Organism + Track Switching
-    -   [x] Creating Features
-    -   [x] Adding textual annotations
-    -   [x] Correcting gene model
-    -   [x] Export to Galaxy
+These documents cover the Center for Phage Technology's approach to using
+Galaxy and Apollo together for automated and manual curation.
 
 LICENSE
 =======
